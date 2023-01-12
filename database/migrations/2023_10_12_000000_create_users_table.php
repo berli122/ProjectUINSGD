@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('nip')->unique();
             $table->string('name');
-            $table->string('image')->default('blank.jpg');
+            $table->string('image')->nullable();
             $table->foreignId('jabatan_id')
                 ->nullable()
                 ->constrained('jabatans')

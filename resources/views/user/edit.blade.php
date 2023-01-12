@@ -87,7 +87,7 @@
                             <div class="col-md-6">
                                 <label for="formFile" class="form-label">Foto</label>
                                 <img src="{{ 'storage/image'.$user->image }}" alt="">
-                                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image">
+                                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" value="{{ $user->image }}">
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -108,8 +108,7 @@
                                 <label class="form-label" for="name">Password</label>
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
-                                    autocomplete="new-password" placeholder="Password"
-                                    required>
+                                    autocomplete="new-password" placeholder="Password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

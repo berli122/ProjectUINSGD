@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'nip' => '1234567890',
             'name' => 'adminuin',
+            'image' => 'blank.jpg',
             'jabatan_id' => 1,
             'golongan_id' => 1,
             'role' => 'admin',
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
         $user = User::create([
             'nip' => '0987654321',
             'name' => 'user',
+            'image' => 'blank.jpg',
             'jabatan_id' => 2,
             'golongan_id' => 2,
             'role' => 'user',

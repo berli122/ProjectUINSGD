@@ -63,7 +63,7 @@ class UserController extends Controller
             'golongan' => ['required'],
             'role' => ['required'],
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required', 'min:8'],
 
         ]);
 
@@ -71,7 +71,7 @@ class UserController extends Controller
 
         if ($request->file('image')) {
             $extendsion = $request->file('image')->getClientOriginalName();
-            $newName = $request->name . '$$' . now()->timestamp . '.' . $extendsion;
+            $newName = $request->name . 'PTIPD' . now()->timestamp . '.' . $extendsion;
             $request->file('image')->storeAs('image', $newName);
         }
 
@@ -132,7 +132,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'nip' => ['required', 'min:8'],
             'name' => ['required', 'max:255'],
             'image' => ['nullable', 'file', 'image', 'max:1024'],
@@ -140,15 +140,15 @@ class UserController extends Controller
             'golongan' => ['required'],
             'role' => ['required'],
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['nullable', 'min:8'],
 
         ]);
 
-        $newName = 'blank.jpg';
+        $newName = '';
 
         if ($request->file('image')) {
             $extendsion = $request->file('image')->getClientOriginalName();
-            $newName = $request->name . '$$' . now()->timestamp . '.' . $extendsion;
+            $newName = $request->name . 'PTIPD' . now()->timestamp . '.' . $extendsion;
             $request->file('image')->storeAs('image', $newName);
         }
 
@@ -158,7 +158,11 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->nip = $request->nip;
         $user->name = $request->name;
-        $user->image = $newName;
+        if($newName == ''){
+            $user->image = $user->image;
+        } else {
+            $user->image = $newName;
+        }
         $user->jabatan_id = $validatedData['jabatan_id'];
         $user->golongan_id = $validatedData['golongan_id'];
         $user->role = $request->role;
