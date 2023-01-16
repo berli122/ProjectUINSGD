@@ -20,7 +20,6 @@ class LemburController extends Controller
      */
     public function index(Request $request)
     {
-
         $lemburs = Lembur::all('id')->count();
         $lembur = Lembur::with('user')->paginate(10);
         return view('lembur.index', ['lembur' => $lembur], compact('lemburs'));

@@ -51,8 +51,7 @@
                                     <tbody>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $data->user->name }}</td>
-                                        <td>{{ $data->user->golongan->gol }} - {{ $data->user->golongan->name }}
-                                        </td>
+                                        <td>{{ $data->user->golongan->gol }} - {{ $data->user->golongan->name }}</td>
                                         <td>{{ $data->user->jabatan->name }}</td>
                                         <td>{{ $data->pekerjaan->des }}</td>
                                         <td>
