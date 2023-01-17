@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Lembur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Yajra\DataTables\Facades\DataTables;
 
 class LemburController extends Controller
 {
@@ -45,15 +44,21 @@ class LemburController extends Controller
     public function store(Request $request)
     {
         //
-        $validated = $request->validate([
-
-            'tgl' => ['required','date'],
-            'dari' => 'required',
-            'sampai' => 'required',
-            'kgtn' => 'required',
-            'urai' => 'required|max:225',
-
-        ]);
+        $validated = $request->validate(
+            [
+                'tgl' => ['required', 'date'],
+                'dari' => 'required',
+                'sampai' => 'required',
+                'kgtn' => ['required', 'min:5', 'max:10'],
+                'urai' => ['required', 'min:5', 'max:255'],
+            ],
+            [
+                'kgtn.min' => 'Kegiatan minimal :min digit',
+                'kgtn.max' => 'Kegiatan maximal :max digit',
+                'urai.min' => 'Kegiatan minimal :min digit',
+                'urai.max' => 'Kegiatan maximal :max digit',
+            ]
+        );
 
         $lembur = new Lembur();
         $lembur->tgl = $request->tgl;
@@ -108,15 +113,24 @@ class LemburController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $validated = $request->validate([
+        $validated = $request->validate(
+            [
 
-            'tgl' => 'required|date',
-            'dari' => 'required',
-            'sampai' => 'required',
-            'kgtn' => 'required',
-            'urai' => 'required|max:225',
+                'tgl' => 'required|date',
+                'dari' => 'required',
+                'sampai' => 'required',
+                'kgtn' => ['required', 'min:5', 'max:10'],
+                'urai' => ['required', 'min:5', 'max:255'],
 
-        ]);
+            ],
+            [
+                'kgtn.min' => 'Kegiatan tidak boleh kurang dari 5 digit',
+                'kgtn.max' => 'Kegiatan tidak boleh lebih dari 10 digit',
+                'urai.min' => 'Kegiatan tidak boleh kurang dari 5 digit',
+                'urai.max' => 'Kegiatan tidak boleh lebih dari 255 digit',
+
+            ]
+        );
 
         $lembur = Lembur::findOrFail($id);
         $lembur->tgl = $request->tgl;
@@ -145,6 +159,4 @@ class LemburController extends Controller
         return redirect()->route('lembur.index')
             ->with('warning', 'Data berhasil dihapus!');
     }
-
-
 }

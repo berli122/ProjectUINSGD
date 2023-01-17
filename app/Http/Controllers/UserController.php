@@ -55,17 +55,31 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $validated = $request->validate([
-            'nip' => ['required', 'unique:users', 'min:8'],
-            'name' => ['required', 'max:255'],
-            'image' => ['nullable', 'file', 'image', 'max:1024'],
-            'jabatan' => ['required'],
-            'golongan' => ['required'],
-            'role' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'min:8'],
+        $validated = $request->validate(
+            [
+                'nip' => ['required', 'unique:users', 'min:8'],
+                'name' => ['required', 'max:255', 'min:5'],
+                'image' => ['nullable', 'file', 'image', 'max:1024'],
+                'jabatan' => ['required'],
+                'golongan' => ['required'],
+                'role' => ['required'],
+                'email' => ['required', 'email'],
+                'password' => ['required', 'min:8'],
 
-        ]);
+            ],
+            [
+                //NIP
+                'nip.min' => 'NIP minimal :min digit',
+                'nip.unique' => 'NIP sudah terdaftar',
+
+                //Name
+                'name.max' => 'Nama maximal :max digit',
+                'name.min' => 'Nama minimal :min digit',
+
+                //Password
+                'password.min' => 'Kegiatan minimal :min digit',
+            ]
+        );
 
         $newName = 'blank.jpg';
 
@@ -140,7 +154,7 @@ class UserController extends Controller
             'golongan' => ['required'],
             'role' => ['required'],
             'email' => ['required', 'email'],
-            'password' => ['nullable', 'min:8'],
+            'password' => ['nullable'],
 
         ]);
 
@@ -158,7 +172,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->nip = $request->nip;
         $user->name = $request->name;
-        if($newName == ''){
+        if ($newName == '') {
             $user->image = $user->image;
         } else {
             $user->image = $newName;
@@ -167,7 +181,7 @@ class UserController extends Controller
         $user->golongan_id = $validatedData['golongan_id'];
         $user->role = $request->role;
         $user->email = $request->email;
-        if($request->password){
+        if ($request->password) {
             $user->password = Hash::make($request->password);
         }
         $user->save();

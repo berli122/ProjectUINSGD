@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes();
 
 Route::get('/', function () {
@@ -35,25 +36,45 @@ Route::get('/printah', [App\Http\Controllers\PrintController::class, 'index']);
 
 
 Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
-    Route::resource('lembur', LemburController::class);
 
-    //Lembur Route
-    // Route::get('/lembur', [LemburController::class, 'index'])->name('lembur.index');
-    // Route::post('/lembur/store', [LemburController::class, 'store'])->name('lembur.store');
-    // Route::get('/lembur/create', [LemburController::class, 'create'])->name('lembur.create');
-    // Route::get('/lembur/edit/{id}', [LemburController::class, 'edit'])->name('lembur.edit');
-    // Route::put('/lembur/update/{id}', [LemburController::class, 'update'])->name('lembur.update');
-    // Route::post('/lembur/delete/{id}', [LemburController::class, 'destroy'])->name('lembur.destroy');
+    //Laporan Lembur
+    Route::get('/list-lembur', [LemburController::class, 'index'])->name('lembur.index');
+    Route::get('/buat-laporan', [LemburController::class, 'create'])->name('lembur.create');
+    Route::post('/lembur/store', [LemburController::class, 'store'])->name('lembur.store');
+    Route::get('/print-data/{id}', [LemburController::class, 'show'])->name('lembur.show');
+    Route::get('/edit-laporan/{id}', [LemburController::class, 'edit'])->name('lembur.edit');
+    Route::put('/lembur/update/{id}', [LemburController::class, 'update'])->name('lembur.update');
+    Route::delete('/lembur/delete/{id}', [LemburController::class, 'destroy'])->name('lembur.destroy');
 
-    Route::resource('spk', SPKController::class);
-    Route::resource('pekerjaan', PekerjaanController::class);
-    Route::resource('profile',ProfilController::class);
+    //Surat Perintah Kerja
+    Route::get('/list-suratPK', [SPKController::class, 'index'])->name('spk.index');
+    Route::get('/buat-surat', [SPKController::class, 'create'])->name('spk.create');
+    Route::post('/suratPK/store', [SPKController::class, 'store'])->name('spk.store');
+    Route::get('/edit-surat/{id}', [SPKController::class, 'create'])->name('spk.edit');
+    Route::put('/suratPK/update/{id}', [SPKController::class, 'update'])->name('spk.update');
+    Route::delete('/suratPK/delete/{id}', [SPKController::class, 'destroy'])->name('spk.destroy');
 
+    //List Pekerjaan
+    Route::get('/list-pekerjaan', [PekerjaanController::class, 'index'])->name('pekerjaan.index');
+    Route::get('/buat-pekerjaan', [PekerjaanController::class, 'create'])->name('pekerjaan.create');
+    Route::post('/pekerjaan/store', [PekerjaanController::class, 'store'])->name('pekerjaan.store');
+    Route::get('/edit-pekerjaan/{id}', [PekerjaanController::class, 'create'])->name('pekerjaan.edit');
+    Route::put('/pekerjaan/update/{id}', [PekerjaanController::class, 'update'])->name('pekerjaan.update');
+    Route::delete('/pekerjaan/delete/{id}', [PekerjaanController::class, 'destroy'])->name('pekerjaan.destroy');
+
+    Route::resource('profile', ProfilController::class);
 });
 
-Route::group(['middleware' => ['auth', 'role:admin']], function () {
-    // Alert::alert('Welcome', 'UIN PTIPD', 'success');
-    Route::resource('user', UserController::class);
-    Route::resource('jabatan', JabatanController::class);
 
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+
+    //User Route
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/buat-user', [UserController::class, 'create'])->name('user.create');
+    Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('/edit-user/{id}', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+    Route::resource('jabatan', JabatanController::class);
 });

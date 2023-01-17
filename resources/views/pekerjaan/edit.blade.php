@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 @include('layouts.flash')
                 <div class="card mt-3">
-                    <div class="card-header mb-3">Buat Pekerjaan</div>
+                    <div class="card-header mb-3">Edit Pekerjaan</div>
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
