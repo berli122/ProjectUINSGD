@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lembur;
 use Illuminate\Http\Request;
+use Alert;
 use Illuminate\Support\Facades\Auth;
 
 class LemburController extends Controller
@@ -20,7 +21,11 @@ class LemburController extends Controller
     public function index(Request $request)
     {
         $lemburs = Lembur::all('id')->count();
-        $lembur = Lembur::with('user')->paginate(10);
+        if (Auth::user()->hasRole('admin')) {
+            $lembur = Lembur::with('user')->paginate(15);
+        } else{
+            $lembur = Lembur::with('user')->where('user_id', Auth::user()->id)->paginate(15);
+        }
         return view('lembur.index', ['lembur' => $lembur], compact('lemburs'));
     }
 
@@ -69,6 +74,7 @@ class LemburController extends Controller
         $lembur->user_id = Auth::user()->id;
 
         if ($lembur->tgl > \Carbon\Carbon::now()) {
+            Alert::error('Perhatian', 'Input tanggal tidak boleh melebihi tanggal hari ini');
             return back();
         } else {
             $lembur->save();

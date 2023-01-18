@@ -60,7 +60,7 @@
                         </div>
                         <div class="mb-3 col-4 container">
                             <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="submit" onclick="showAlert()">
+                                <button class="btn btn-primary" type="submit">
                                     Save
                                 </button>
                             </div>
