@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lembur;
 use Illuminate\Http\Request;
-use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 
 class LemburController extends Controller
