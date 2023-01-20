@@ -8,8 +8,8 @@ use App\Models\Lembur;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Traits\HasRoles;
-use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class UserController extends Controller
 {
