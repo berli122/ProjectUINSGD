@@ -7,8 +7,20 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+<<<<<<< Updated upstream
 
 
+=======
+<<<<<<< HEAD
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+use Laravel\Sanctum\HasApiTokens;
+
+=======
+
+
+>>>>>>> 36cc3ebe3804cd8ef7506acc12b235b41742f74e
+>>>>>>> Stashed changes
 /**
  * App\Models\User
  *
@@ -60,7 +72,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
+<<<<<<< Updated upstream
     use HasRoles, HasFactory, Notifiable;
+=======
+<<<<<<< HEAD
+    use HasFactory, Notifiable, HasRoles, HasApiTokens;
+=======
+    use HasRoles, HasFactory, Notifiable;
+>>>>>>> 36cc3ebe3804cd8ef7506acc12b235b41742f74e
+>>>>>>> Stashed changes
 
     /**
      * The attributes that are mass assignable.

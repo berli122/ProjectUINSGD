@@ -116,10 +116,12 @@
                                                     class="btn btn-sm btn-success">
                                                     <i class="fa-solid fa-pen-to-square"></i> Edit
                                                 </a> |
+
                                                 <button type="submit" class="btn btn-sm btn-danger"
                                                     onclick="return confirm('Apakah Anda Yakin?')"><i
                                                         class="fa-solid fa-user-slash"></i>Delete
                                                 </button>
+                                                
                                             </form>
                                         </td>
                                     </tr>

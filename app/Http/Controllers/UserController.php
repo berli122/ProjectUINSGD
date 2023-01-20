@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Traits\HasRoles;
+use Alert;
 
 class UserController extends Controller
 {
@@ -200,8 +201,15 @@ class UserController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        $user->delete();
-        return redirect()->route('user.index')
-            ->with('warning', 'Data berhasil dihapus!');
+        if($user->hasRole('admin')){
+            Alert::error('Noted', 'Admin tidak boleh dihapus!');
+            return back()
+                ->with('error', 'Admin tidak boleh dihapus!');
+        } else {
+            $user->delete();
+            return redirect()->route('user.index')
+                ->with('warning', 'Data berhasil dihapus!');
+        }
+
     }
 }

@@ -36,7 +36,7 @@ Route::get('/printah', [App\Http\Controllers\PrintController::class, 'index']);
 
 
 Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
-
+  
     //Laporan Lembur
     Route::get('/list-lembur', [LemburController::class, 'index'])->name('lembur.index');
     Route::get('/buat-laporan', [LemburController::class, 'create'])->name('lembur.create');
