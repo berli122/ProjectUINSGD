@@ -36,7 +36,7 @@ Route::get('/printah', [App\Http\Controllers\PrintController::class, 'index']);
 
 
 Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
-  
+
     //Laporan Lembur
     Route::get('/list-lembur', [LemburController::class, 'index'])->name('lembur.index');
     Route::get('/buat-laporan', [LemburController::class, 'create'])->name('lembur.create');
@@ -62,7 +62,7 @@ Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
     Route::put('/pekerjaan/update/{id}', [PekerjaanController::class, 'update'])->name('pekerjaan.update');
     Route::delete('/pekerjaan/delete/{id}', [PekerjaanController::class, 'destroy'])->name('pekerjaan.destroy');
 
-    Route::resource('profile', ProfilController::class);
+    Route::get('/profile-user/{id}', [UserController::class, 'show'])->name('user.show');
 });
 
 

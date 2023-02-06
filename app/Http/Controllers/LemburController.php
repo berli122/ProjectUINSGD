@@ -151,6 +151,16 @@ class LemburController extends Controller
             ->with('success', 'Data berhasil diedit!');
     }
 
+    public function exportpdf($id)
+    {
+        //
+        $lembur = Lembur::all($id);
+        return view('lembur.show', compact('lembur'));
+
+        $pdf = PDF::loadview()
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *
