@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Pekerjaan;
 use App\Models\SPK;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use PDF;
+use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SPKController extends Controller
 {
@@ -18,7 +18,7 @@ class SPKController extends Controller
     public function index()
     {
         //
-        $spk = SPK::with('user','pekerjaan','lembur')->paginate(10);
+        $spk = SPK::with('user', 'pekerjaan', 'lembur')->paginate(10);
         $spks = SPK::where('id')->count();
         return view('spk.index', ['spk' => $spk], compact('spks'));
     }
@@ -33,7 +33,7 @@ class SPKController extends Controller
         //
         $peker = Pekerjaan::all();
         $spk = SPK::with('lembur');
-        return view('spk.create',compact('peker','spk'));
+        return view('spk.create', compact('peker', 'spk'));
     }
 
     /**
@@ -71,6 +71,7 @@ class SPKController extends Controller
         //
         $spk = SPK::findOrFail($id);
         return view('spk.show', compact('spk'));
+
     }
 
     /**

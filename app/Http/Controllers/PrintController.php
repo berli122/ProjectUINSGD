@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\SPK;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class PrintController extends Controller
 {
     public function index()
     {
-        $spk = SPK::with('user','pekerjaan','lembur')->paginate(15);
-        return view('spk.print', ['spk' => $spk]);
+        $spk = SPK::all();
+        return view('spk.print', compact('spk'));
+
     }
-    
+
     public function generatePdf()
     {
         $spk = SPK::all();

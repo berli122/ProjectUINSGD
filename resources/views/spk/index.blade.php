@@ -21,28 +21,11 @@
         </div>
         @include('layouts.flash')
         <div class="card">
-            <div class="table-responsive">
-                <table class="table align-middle">
-                    <tbody>
-                        <tr>
-                            <form action="{{ route('spk.show', Auth::user()->id) }}" method="post">
-                                <td><input type="date" name="tanggal_awal"
-                                        style="border: none;border-bottom: 2px solid black"></td>
-                                <td><input type="date" name="tanggal_akhir"
-                                        style="border: none;border-bottom: 2px solid black"></td>
-                                <td>
-                                    @csrf
-                                    <input type="submit" class="btn btn-sm btn-success" value="Print">
-                            </form>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
             <div class="card-header">
                 <h4 class="float-start text-primary">Surat Perintah</h4>
                 <div class="card-header-action">
-                    <a class="btn btn-warning" href="{{ url('/printah') }}"><i class="fa-solid fa-print"></i> Print
+                    <a class="btn btn-warning" href="{{ route('spk.print') }}"><i class="fa-solid fa-print"></i> Print
+
                     </a>
                     <a class="btn btn-primary" href="{{ route('spk.create') }}"><i class="fa-solid fa-circle-plus"></i>
                         Tambah

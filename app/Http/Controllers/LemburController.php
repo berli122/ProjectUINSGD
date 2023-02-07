@@ -144,7 +144,7 @@ class LemburController extends Controller
         $lembur->dari = $request->dari;
         $lembur->sampai = $request->sampai;
         $lembur->kgtn = $request->kgtn;
-        $lembur->urai = $request->urai;  
+        $lembur->urai = $request->urai;
 
         $lembur->save();
 
@@ -166,6 +166,7 @@ class LemburController extends Controller
         return redirect()->route('lembur.index')
             ->with('warning', 'Data berhasil dihapus!');
     }
+
 
 }
 

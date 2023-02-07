@@ -31,7 +31,7 @@ Route::get('/', function () {
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-Route::get('/printah', [App\Http\Controllers\PrintController::class, 'index']);
+Route::get('/printah', [App\Http\Controllers\PrintController::class, 'index'])->name('spk.print');
 
 
 
@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
     Route::delete('/pekerjaan/delete/{id}', [PekerjaanController::class, 'destroy'])->name('pekerjaan.destroy');
 
     Route::get('/profile-user/{id}', [UserController::class, 'show'])->name('user.show');
-    Route::post('/print-spk', [SPKController::class, 'laporan'])->name('spk.show');
+    Route::get('/print-spk', [SPKController::class, 'show'])->name('spk.show');
 });
 
 
