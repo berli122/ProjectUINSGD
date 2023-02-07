@@ -6,6 +6,7 @@ use App\Models\Pekerjaan;
 use App\Models\SPK;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use PDF;
 
 class SPKController extends Controller
 {
@@ -121,5 +122,8 @@ class SPKController extends Controller
         $spk->delete();
         return redirect()->route('spk.index')
             ->with('warning', 'Data berhasil dihapus!');
+
     }
+
+
 }

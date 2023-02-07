@@ -6,6 +6,7 @@ use App\Models\Lembur;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class LemburController extends Controller
 {
@@ -143,23 +144,13 @@ class LemburController extends Controller
         $lembur->dari = $request->dari;
         $lembur->sampai = $request->sampai;
         $lembur->kgtn = $request->kgtn;
-        $lembur->urai = $request->urai;
+        $lembur->urai = $request->urai;  
 
         $lembur->save();
 
         return redirect()->route('lembur.index')
             ->with('success', 'Data berhasil diedit!');
     }
-
-    public function exportpdf($id)
-    {
-        //
-        $lembur = Lembur::all($id);
-        return view('lembur.show', compact('lembur'));
-
-        $pdf = PDF::loadview()
-    }
-
 
     /**
      * Remove the specified resource from storage.
@@ -175,4 +166,6 @@ class LemburController extends Controller
         return redirect()->route('lembur.index')
             ->with('warning', 'Data berhasil dihapus!');
     }
+
 }
+

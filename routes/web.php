@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
     Route::delete('/pekerjaan/delete/{id}', [PekerjaanController::class, 'destroy'])->name('pekerjaan.destroy');
 
     Route::get('/profile-user/{id}', [UserController::class, 'show'])->name('user.show');
+    Route::post('/print-spk', [SPKController::class, 'laporan'])->name('spk.show');
 });
 
 

@@ -12,4 +12,36 @@ class PrintController extends Controller
         $spk = SPK::with('user','pekerjaan','lembur')->paginate(15);
         return view('spk.print', ['spk' => $spk]);
     }
+    
+    public function generatePdf()
+    {
+        $spk = SPK::all();
+        $pdf = PDF::loadView('print', ['spk'=>$spk])->setPaper('a4', 'landscape');
+        return $pdf->stream();
+    }
+
+    public function laporan(Request $request)
+    {
+        $start = $request->tanggal_awal;
+        $end = $request->tanggal_akhir;
+
+        if($end >= $start){
+            $spk = SPK::whereBetween('created_at', [$start, $end])->get();
+            $pdf = PDF::loadview('spk.print', compact('spk','start','end'))->setPaper('a4', 'landscape');
+            return $pdf->stream('laporan.pdf');
+        }
+        elseif($end < $start){
+            Alert::error('Tanggal yang anda masukkan tidak valid', 'Oops!')->persistent("Ok");
+            return redirect()->back();
+        }
+    }
+
+    public function singlePrint($id)
+    {
+        $spk = SPK::findOrFail($id);
+        $pdf = PDF::loadView('singlePrint', ['spk'=>$spk])->setPaper('a4', 'landscape');
+        return $pdf->stream();
+    }
 }
+
+
