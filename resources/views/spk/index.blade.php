@@ -24,13 +24,9 @@
             <div class="card-header">
                 <h4 class="float-start text-primary">Surat Perintah</h4>
                 <div class="card-header-action">
-                    <a class="btn btn-warning" href="{{ route('spk.print') }}"><i class="fa-solid fa-print"></i> Print
-
-                    </a>
-                    <a class="btn btn-primary" href="{{ route('spk.create') }}"><i class="fa-solid fa-circle-plus"></i>
-                        Tambah
-                        Data
-                    </a>
+                    <a class="btn btn-warning" href="{{ route('printView') }}"><i class="fa-solid fa-print"></i> Print Berdasarkan Tanggal </a>
+                    <a class="btn btn-warning" href="{{ route('spk.print') }}"><i class="fa-solid fa-print"></i> Print </a>
+                    <a class="btn btn-primary" href="{{ route('spk.create') }}"><i class="fa-solid fa-circle-plus"></i> Tambah Data </a>
                 </div>
             </div>
             <div class="card-body">

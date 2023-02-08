@@ -33,10 +33,11 @@ Route::get('/', function () {
 // Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 //Print
-Route::get('/print', [App\Http\Controllers\PrintController::class, 'index'])->name('spk.print');
+Route::get('/print', [App\Http\Controllers\PrintController::class, 'print'])->name('spk.print');
 Route::get('/print-pdf', [App\Http\Controllers\PrintController::class, 'generatePdf'])->name('spk.pdf');
-Route::post('/print/{id}', [App\Http\Controllers\PrintController::class, 'laporan'])->name('print.pdf');
 Route::get('/print-pdfs', [App\Http\Controllers\PrintController::class, 'singlePrint'])->name('spk.pdfs');
+Route::get('/printT', [App\Http\Controllers\PrintController::class, 'printView'])->name('printView');
+Route::get('printT/{tglawal}/{tglakhir}',[App\Http\Controllers\PrintController::class, 'printT'])->name('spk.printT');
 
 
 
