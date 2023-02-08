@@ -115,13 +115,14 @@
                                                 <a href="{{ route('user.edit', $item->id) }}"
                                                     class="btn btn-sm btn-success">
                                                     <i class="fa-solid fa-pen-to-square"></i> Edit
-                                                </a> |
+                                                </a> 
+                                                @if ($item->role == "user")
+                                                    <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Apakah Anda Yakin?')"><i
+                                                            class="fa-solid fa-user-slash"></i>Delete
+                                                    </button>
+                                                @endif
 
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Apakah Anda Yakin?')"><i
-                                                        class="fa-solid fa-user-slash"></i>Delete
-                                                </button>
-                                                
                                             </form>
                                         </td>
                                     </tr>

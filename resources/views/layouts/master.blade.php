@@ -54,7 +54,7 @@
             <!-- Main Content -->
             <div class="main-content">
                 @yield('content')
-                @include('sweetalert::alert')
+                @include('sweetalert::alert')  
             </div>
             <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
