@@ -27,7 +27,7 @@
                             <h4>Total User</h4>
                         </div>
                         <div class="card-body">
-                            {{ $juser }}
+                            {{-- {{ $juser }} --}}
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                             <h4>Total Jabatan</h4>
                         </div>
                         <div class="card-body">
-                            {{ $jabatans }}
+                            {{-- {{ $jabatans }} --}}
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                             <h4>Total Lembur</h4>
                         </div>
                         <div class="card-body">
-                            {{ $lemburs }}
+                            {{-- {{ $lemburs }} --}}
                         </div>
                     </div>
                 </div>
@@ -67,9 +67,9 @@
         @include('layouts.flash')
         <div class="card">
             <div class="card-header">
-                <h4 class="float-start text-primary">Daftar Jabatan</h4>
+                <h4 class="float-start text-primary">Daftar Golongan</h4>
                 <div class="card-header-action">
-                    <a class="btn btn-primary" href="{{ route('jabatan.create') }}"><i class="fa-solid fa-circle-plus"></i> Tambah
+                    <a class="btn btn-primary" href="{{ route('golongan.create') }}"><i class="fa-solid fa-circle-plus"></i> Tambah
                         Data
                     </a>
                 </div>
@@ -81,18 +81,20 @@
                         <table class="table table-striped table-bordered table-md" id="dataTable">
                             <thead>
                                 <th style="width: 2%">No</th>
-                                <th style="width: 70%">Nama Jabatan</th>
-                                <th>Action</th>
+                                <th style="width: 35%">Kode Golongan</th>
+                                <th style="width: 35%">Nama Golongan</th>
+                                <th style="width: 15%">Action</th>
                             </thead>
-                            @foreach ($jab as $data)
+                            @foreach ($golo as $data)
                                 <tbody>
                                     <td>{{ $no++ }}</td>
+                                    <td>{{ $data->gol }}</td>
                                     <td>{{ $data->name }}</td>
                                     <td>
-                                        <form action="{{ route('jabatan.destroy', $data->id) }}" method="post">
+                                        <form action="{{ route('golongan.destroy', $data->id) }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <a href="{{ route('jabatan.edit', $data->id) }}"
+                                            <a href="{{ route('golongan.edit', $data->id) }}"
                                                 class="btn btn-warning">
                                                 <span class="text"><i class="fa-solid fa-pen-to-square"></i> Edit</span>
                                             </a> |
@@ -108,14 +110,14 @@
                         </table>
                         <div style="float: left">
                             Showing
-                            {{ $jab->firstitem() }}
+                            {{ $golo->firstitem() }}
                             to
-                            {{ $jab->lastitem() }}
+                            {{ $golo->lastitem() }}
                             of
-                            {{ $jab->total() }}
+                            {{ $golo->total() }}
                         </div>
                         <div style="float: right">
-                            {{ $jab->links() }}
+                            {{ $golo->links() }}
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="dropdown {{ Request::is('user', 'jabatan', 'pekerjaan') ? 'active' : '' }}">
+            <li class="dropdown {{ Request::is('user', 'jabatan', 'pekerjaan', 'list-golongan') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="bi bi-fire"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
                     @if (Auth::user()->role == 'admin')
@@ -16,6 +16,8 @@
                                 href="{{ route('user.index') }}">Daftar User</a></li>
                         <li class="{{ Request::is('jabatan') ? 'active' : '' }}"><a class="nav-link"
                                 href="{{ route('jabatan.index') }}">Daftar Jabatan</a></li>
+                        <li class="{{ Request::is('list-golongan') ? 'active' : '' }}"><a class="nav-link"
+                                href="{{ route('golongan.index') }}">Daftar Golongan</a></li>
                     @else
                         <li class="{{ Request::is('pekerjaan') ? 'active' : '' }}"><a class="nav-link"
                                 href="{{ route('pekerjaan.index') }}">Pekerjaan</a></li>

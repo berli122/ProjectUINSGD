@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SPKController;
-use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\LemburController;
-use App\Http\Controllers\PekerjaanController;
-use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PrintController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SPKController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PrintController;
+use App\Http\Controllers\LemburController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\GolonganController;
+use App\Http\Controllers\PekerjaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,10 +74,7 @@ Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
     Route::put('/pekerjaan/update/{id}', [PekerjaanController::class, 'update'])->name('pekerjaan.update');
     Route::delete('/pekerjaan/delete/{id}', [PekerjaanController::class, 'destroy'])->name('pekerjaan.destroy');
 
-<<<<<<< Updated upstream
-    
-=======
-<<<<<<< HEAD
+
     //List Golongan
     Route::get('/list-golongan', [GolonganController::class, 'index'])->name('golongan.index');
     Route::get('/buat-golongan', [GolonganController::class, 'create'])->name('golongan.create');
@@ -84,10 +82,6 @@ Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
     Route::get('/edit-golongan/{id}', [GolonganController::class, 'edit'])->name('golongan.edit');
     Route::put('/golongan/update/{id}', [GolonganController::class, 'update'])->name('golongan.update');
     Route::delete('/golongan/delete/{id}', [GolonganController::class, 'destroy'])->name('golongan.destroy');
-=======
-    
->>>>>>> f6858b5e68344565bbb64dce7992fb09954f3ef5
->>>>>>> Stashed changes
 
     Route::get('/profile-user/{id}', [UserController::class, 'show'])->name('user.show');
     Route::get('/print-spk', [SPKController::class, 'show'])->name('spk.show');

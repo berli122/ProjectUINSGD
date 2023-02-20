@@ -58,7 +58,7 @@ class JabatanController extends Controller
         $jab->save();
 
         return redirect()->route('jabatan.index')
-            ->with('success', 'Data berhasil dihapus!');
+            ->with('success', 'Data berhasil dibuat!');
     }
 
     /**

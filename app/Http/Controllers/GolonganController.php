@@ -14,8 +14,8 @@ class GolonganController extends Controller
      */
     public function index()
     {
-        $jg = Golongan::all()->count();
-        return view('golongan.index', compact('jg'));
+        $golo = Golongan::paginate(10);
+        return view('golongan.index', ['golo' => $golo]);
     }
 
     /**
@@ -37,18 +37,23 @@ class GolonganController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nmor' => ['required', 'max:5'],
-            'name' => ['required', 'min:5'],
+            'gol' => ['required', 'max:5', 'unique:golongans'],
+            'name' => ['required', 'min:5', 'unique:golongans'],
         ]);
-        Golongan::create($validated);
-        dd($validated);
-        // return view()->route('');
+        // dd($validated);
+        $golo = new Golongan();
+        $golo->gol = $request->gol;
+        $golo->name = $request->name;
+        $golo->save();
+        return redirect()->route('golongan.index')
+            ->with('success', 'Data berhasil dibuat!');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Golongan  $golongan
+     * @param  \App\Models\Golongan  $goloongan
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -59,34 +64,53 @@ class GolonganController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Golongan  $golongan
+     * @param  \App\Models\Golongan  $goloongan
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $golo = Golongan::findOrFail($id);
+        return view('golongan.edit', compact('golo'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Golongan  $golongan
+     * @param  \App\Models\Golongan  $goloongan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'gol' => ['required', 'max:5', 'unique:golongans'],
+            'name' => ['required', 'min:5', 'unique:golongans'],
+        ]);
+        $golo = Golongan::findOrFail($id);
+
+        $golo->gol = $request->gol;
+        $golo->name = $request->name;
+
+        $golo->save();
+
+        return view()->route('golongan.index')
+            ->with('success', 'Data berhasil diedit!');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Golongan  $golongan
+     * @param  \App\Models\Golongan  $goloongan
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $golo = Golongan::findOrFail($id);
+        $golo->delete();
+        return redirect()->route('golongan.index')
+            ->with('warning', 'Data berhasil dihapus!');
+
     }
 }
