@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
     Route::get('/list-lembur', [LemburController::class, 'index'])->name('lembur.index');
     Route::get('/buat-laporan', [LemburController::class, 'create'])->name('lembur.create');
     Route::post('/lembur/store', [LemburController::class, 'store'])->name('lembur.store');
-    Route::get  ('/print-data/{id}', [LemburController::class, 'show'])->name('lembur.show');
+    Route::get('/print-data/{id}', [LemburController::class, 'show'])->name('lembur.show');
     Route::get('/edit-laporan/{id}', [LemburController::class, 'edit'])->name('lembur.edit');
     Route::put('/lembur/update/{id}', [LemburController::class, 'update'])->name('lembur.update');
     Route::delete('/lembur/delete/{id}', [LemburController::class, 'destroy'])->name('lembur.destroy');
@@ -72,6 +72,8 @@ Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
     Route::get('/edit-pekerjaan/{id}', [PekerjaanController::class, 'create'])->name('pekerjaan.edit');
     Route::put('/pekerjaan/update/{id}', [PekerjaanController::class, 'update'])->name('pekerjaan.update');
     Route::delete('/pekerjaan/delete/{id}', [PekerjaanController::class, 'destroy'])->name('pekerjaan.destroy');
+
+    
 
     Route::get('/profile-user/{id}', [UserController::class, 'show'])->name('user.show');
     Route::get('/print-spk', [SPKController::class, 'show'])->name('spk.show');
