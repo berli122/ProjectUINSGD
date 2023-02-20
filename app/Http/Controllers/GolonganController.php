@@ -14,7 +14,8 @@ class GolonganController extends Controller
      */
     public function index()
     {
-        //
+        $jg = Golongan::all()->count();
+        return view('golongan.index', compact('jg'));
     }
 
     /**
@@ -24,7 +25,7 @@ class GolonganController extends Controller
      */
     public function create()
     {
-        //
+        return view('golongan.create');
     }
 
     /**
@@ -35,7 +36,13 @@ class GolonganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nmor' => ['required', 'max:5'],
+            'name' => ['required', 'min:5'],
+        ]);
+        Golongan::create($validated);
+        dd($validated);
+        // return view()->route('');
     }
 
     /**
