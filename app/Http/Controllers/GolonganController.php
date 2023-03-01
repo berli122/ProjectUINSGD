@@ -47,7 +47,6 @@ class GolonganController extends Controller
         $golo->save();
         return redirect()->route('golongan.index')
             ->with('success', 'Data berhasil dibuat!');
-
     }
 
     /**
@@ -71,7 +70,6 @@ class GolonganController extends Controller
     {
         $golo = Golongan::findOrFail($id);
         return view('golongan.edit', compact('golo'));
-
     }
 
     /**
@@ -96,7 +94,6 @@ class GolonganController extends Controller
 
         return view()->route('golongan.index')
             ->with('success', 'Data berhasil diedit!');
-
     }
 
     /**
@@ -111,6 +108,5 @@ class GolonganController extends Controller
         $golo->delete();
         return redirect()->route('golongan.index')
             ->with('warning', 'Data berhasil dihapus!');
-
     }
 }

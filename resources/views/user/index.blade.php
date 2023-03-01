@@ -67,6 +67,42 @@
                 </div>
             </div>
         </div>
+
+        {{-- <body>
+            <h1>Cara Menggunakan Charts.JS di Laravel 9 - LaravelTuts.com</h1>
+            <canvas id="myChart" height="100px"></canvas>
+        </body>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/ npm/chart.js"></script>
+
+
+
+        <script type="text/javascript">
+            var label = {{ Js::from($labels) }};
+            var pengguna = {{ Js::from($data) }};
+
+            const data = {
+                label: label,
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: users,
+                }]
+            };
+
+            const config = {
+                type: 'baris',
+                data: data,
+                opsi: {}
+            };
+
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+        </script> --}}
         @include('layouts/flash')
         <div class="card">
             <div class="card-header">
@@ -115,8 +151,8 @@
                                                 <a href="{{ route('user.edit', $item->id) }}"
                                                     class="btn btn-sm btn-success">
                                                     <i class="fa-solid fa-pen-to-square"></i> Edit
-                                                </a> 
-                                                @if ($item->role == "user")
+                                                </a>
+                                                @if ($item->hasRole('user'))
                                                     <button type="submit" class="btn btn-sm btn-danger"
                                                         onclick="return confirm('Apakah Anda Yakin?')"><i
                                                             class="fa-solid fa-user-slash"></i>Delete

@@ -80,8 +80,8 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-md" id="dataTable">
                             <thead>
-                                <th style="width: 2%">No</th>
-                                <th style="width: 35%">Kode Golongan</th>
+                                <th style="width: 1%">No</th>
+                                <th style="width: 10%">Kode Golongan</th>
                                 <th style="width: 35%">Nama Golongan</th>
                                 <th style="width: 15%">Action</th>
                             </thead>

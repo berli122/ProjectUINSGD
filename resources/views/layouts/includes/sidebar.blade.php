@@ -8,7 +8,7 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="dropdown {{ Request::is('user', 'jabatan', 'pekerjaan', 'list-golongan') ? 'active' : '' }}">
+            <li class="dropdown {{ Request::is('user', 'jabatan', 'pekerjaan', 'list-golongan', 'list-pekerjaan') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="bi bi-fire"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
                     @if (Auth::user()->role == 'admin')
@@ -19,15 +19,15 @@
                         <li class="{{ Request::is('list-golongan') ? 'active' : '' }}"><a class="nav-link"
                                 href="{{ route('golongan.index') }}">Daftar Golongan</a></li>
                     @else
-                        <li class="{{ Request::is('pekerjaan') ? 'active' : '' }}"><a class="nav-link"
+                        <li class="{{ Request::is('list-pekerjaan') ? 'active' : '' }}"><a class="nav-link"
                                 href="{{ route('pekerjaan.index') }}">Pekerjaan</a></li>
                     @endif
                 </ul>
             </li>
             <li class="menu-header">Menu</li>
-            <li class="{{ Request::is('lembur') ? 'active' : '' }}">
+            <li class="{{ Request::is('list-lembur') ? 'active' : '' }}">
                 <a href="{{ route('lembur.index') }}"><i class="bi bi-collection-fill"></i><span>Lembur</span></a>
-            <li class="{{ Request::is('spk') ? 'active' : '' }}">
+            <li class="{{ Request::is('list-suratPK') ? 'active' : '' }}">
                 <a href="{{ route('spk.index') }}"><i
                         class="bi bi-clipboard2-check-fill"></i><span>Surat Perintah</span></a>
         </ul>

@@ -72,11 +72,12 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label" for="role">Level</label>
+                                <label class="form-label" for="role">Role</label>
                                 <select name="role" id=""
                                     class="form-select  @error('role') is-invalid @enderror" required>
-                                    <option value="user" default>User</option>
-                                    <option value="admin">Admin</option>
+                                    <option value="{{ $user->role }}" selected>{{ $user->role }}</option>
+                                    <option value="user">user</option>
+                                    <option value="admin">admin</option>
                                 </select>
                                 @error('role')
                                     <span class="invalid-feedback" role="alert">

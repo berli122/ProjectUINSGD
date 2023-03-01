@@ -22,7 +22,7 @@ class LemburController extends Controller
     public function index(Request $request)
     {
         $lemburs = Lembur::all('id')->count();
-        if (Auth::user()->hasRole('admin')) {
+        if (Auth::user()->role == 'admin') {
             $lembur = Lembur::with('user')->paginate(15);
         } else{
             $lembur = Lembur::with('user')->where('user_id', Auth::user()->id)->paginate(15);

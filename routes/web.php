@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\PekerjaanController;
+use Illuminate\Support\Js;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +26,18 @@ use App\Http\Controllers\PekerjaanController;
 
 Auth::routes();
 
+
 Route::get('/', function () {
-    return view('auth.login');
+    if(Auth::guest()){
+        return view('auth.login');
+    } else {
+        return back();
+    }
 });
 
+
 Route::get('/register', function () {
-    return back( );
+    return back();
 });
 
 
@@ -42,7 +49,7 @@ Route::get('/print', [App\Http\Controllers\PrintController::class, 'print'])->na
 Route::get('/print-pdf', [App\Http\Controllers\PrintController::class, 'generatePdf'])->name('spk.pdf');
 Route::get('/print-pdfs', [App\Http\Controllers\PrintController::class, 'singlePrint'])->name('spk.pdfs');
 Route::get('/printT', [App\Http\Controllers\PrintController::class, 'printView'])->name('printView');
-Route::get('printT/{tglawal}/{tglakhir}',[App\Http\Controllers\PrintController::class, 'printT'])->name('spk.printT');
+Route::get('printT/{tglawal}/{tglakhir}', [App\Http\Controllers\PrintController::class, 'printT'])->name('spk.printT');
 
 
 

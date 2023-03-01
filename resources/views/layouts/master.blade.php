@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>General Dashboard &mdash; Stisla</title>
+    <link rel="shortcut icon" href="https://yt3.googleusercontent.com/quq36kPmOVYArMeQoBfC6KTY0aGomDT_XOsNsGMmrqOWMz7IjBOEVAksprvBM3umg3fpjpRE=s900-c-k-c0x00ffffff-no-rj" type="image/x-icon">
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('tamplate/stisla/dist/assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -54,7 +55,7 @@
             <!-- Main Content -->
             <div class="main-content">
                 @yield('content')
-                @include('sweetalert::alert')  
+                @include('sweetalert::alert')
             </div>
             <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">

@@ -7,9 +7,10 @@ use App\Models\Jabatan;
 use App\Models\Lembur;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Auth;
 
 class UserController extends Controller
 {
@@ -102,6 +103,7 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->assignRole('user');
         $user->save();
 
         return redirect()->route('user.index')
@@ -180,7 +182,16 @@ class UserController extends Controller
         }
         $user->jabatan_id = $validatedData['jabatan_id'];
         $user->golongan_id = $validatedData['golongan_id'];
-        $user->role = $request->role;
+        if ($request->role) {
+            if ($user->hasRole('admin')) {
+                if ($request->role != Auth::user()->role) {
+                    Alert::error('Noted', 'Role SuperAdmin tidak boleh di buah');
+                    return back()->with('error', 'Role tidak berhasil di ubah');
+                }
+            } else {
+                $user->role = $request->role;
+            }
+        }
         $user->email = $request->email;
         if ($request->password) {
             $user->password = Hash::make($request->password);
@@ -201,7 +212,7 @@ class UserController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        if($user->hasRole('admin')){
+        if ($user->hasRole('admin')) {
             Alert::error('Noted', 'Admin tidak boleh dihapus!');
             return back()
                 ->with('error', 'Admin tidak boleh dihapus!');
@@ -211,5 +222,18 @@ class UserController extends Controller
                 ->with('warning', 'Data berhasil dihapus!');
         }
 
+    }
+
+    public function chart()
+    {
+        $users = User::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('id', 'ASC')
+            ->pluck('count', 'month_name');
+        $labels = $users->keys();
+        $data = $users->values();
+
+        return view('user.index', compact('labels', 'data'));
     }
 }

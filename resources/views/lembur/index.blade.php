@@ -54,7 +54,7 @@
                                 @endphp
                                 <td>
                                     @if ($lem <= 0)
-                                        Tidak Lembur
+                                        =  Tidak Lembur
                                     @elseif ($lem >= 32400)
                                         @php
                                             $jam = ($lem - 28800) / 3600;
