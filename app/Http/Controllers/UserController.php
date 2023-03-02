@@ -31,7 +31,12 @@ class UserController extends Controller
         $lemburs = Lembur::all('id')->count();
         $jabatans = Jabatan::all('id')->count();
         $juser = User::all('id')->count();
-        return view('user.index', ['user' => $user], compact('juser', 'lemburs', 'jabatans'));
+        // $users = User::select(DB::raw("CAST(COUNT(id) as int) as total_user"))
+        // ->Groupby(DB::raw("Month(created_at)"))
+        // ->pluck('total_user');
+
+        $labels = ['Januari', 'Februari',  'Maret', 'April'];
+        return view('user.index', ['user' => $user, 'labels' => $labels], compact('juser', 'lemburs', 'jabatans',));
     }
 
     /**
@@ -224,16 +229,16 @@ class UserController extends Controller
 
     }
 
-    public function chart()
-    {
-        $users = User::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('id', 'ASC')
-            ->pluck('count', 'month_name');
-        $labels = $users->keys();
-        $data = $users->values();
+    // public function chart()
+    // {
+    //     $total_user = User::select(DB::raw("CAST(COUNT(id) as int) as total_user"))
+    //     ->Groupby(BD::raw("Month(created_at)"))
+    //     ->pluk('total_user');
 
-        return view('user.index', compact('labels', 'data'));
-    }
+    //     $bulan = User::select(DB::raw("MONTHNAME(created_at) as bulan"))
+    //     ->Groupby(BD::raw("MONTHNAME(created_at)"))
+    //     ->pluk('bulan');
+
+    //     return view('user.index', compact('total_user', 'data'));
+    // }
 }

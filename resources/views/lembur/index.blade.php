@@ -14,6 +14,7 @@
         <div class="section-header">
             <h6 class="text-uppercase">Daftar Lembur</h6>
         </div>
+        @yield('chart')
         @include('layouts.flash')
         <div class="card">
             <div class="card-header">

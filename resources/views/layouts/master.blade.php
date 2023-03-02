@@ -129,6 +129,8 @@
     <script src="{{ asset('tamplate/stisla/dist/assets/js/scripts.js') }}"></script>
     <script src="{{ asset('tamplate/stisla/dist/assets/js/custom.js') }}"></script>
 
+    @yield('js')
+
 
 
 

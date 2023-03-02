@@ -68,41 +68,14 @@
             </div>
         </div>
 
-        {{-- <body>
-            <h1>Cara Menggunakan Charts.JS di Laravel 9 - LaravelTuts.com</h1>
-            <canvas id="myChart" height="100px"></canvas>
-        </body>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/ npm/chart.js"></script>
-
-
-
-        <script type="text/javascript">
-            var label = {{ Js::from($labels) }};
-            var pengguna = {{ Js::from($data) }};
-
-            const data = {
-                label: label,
-                datasets: [{
-                    label: 'My First dataset',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: users,
-                }]
-            };
-
-            const config = {
-                type: 'baris',
-                data: data,
-                opsi: {}
-            };
-
-            const myChart = new Chart(
-                document.getElementById('myChart'),
-                config
-            );
-        </script> --}}
+        <div class="card">
+            <div class="card-header">
+                <h4 class="float-start text-primary">Ceku</h4>
+            </div>
+            <div class="card-body">
+                <canvas id="myChartB" height="100px"></canvas>
+            </div>
+        </div>
         @include('layouts/flash')
         <div class="card">
             <div class="card-header">
@@ -190,4 +163,67 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('js')
+    <script src="{{ asset('tamplate/stisla/dist/assets/modules/chart.min.js') }}"></script>
+
+    <!-- Page Specific JS File -->
+    <script src="{{ asset('tamplate/stisla/dist/assets/js/page/modules-chartjs.js') }}"></script>
+    <script type="text/javascript">
+        var ctx = document.getElementById("myChartB").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{{ json_encode($labels) }}],
+                datasets: [{
+                        label: 'user',
+                        data: [44, 50, 70, 50, 430, 10, 20],
+                        borderWidth: 2,
+                        backgroundColor: '#fad',
+                        borderColor: '#fad',
+                        borderWidth: 2.5,
+                        pointBackgroundColor: '#ffffff',
+                        pointRadius: 4
+                    },
+                    {
+                        label: 'lembur',
+                        data: [44, 50, 70, 50, 430, 10, 20],
+                        borderWidth: 2,
+                        backgroundColor: '#FFFF4D',
+                        borderColor: '#FFFF4D',
+                        borderWidth: 2.5,
+                        pointBackgroundColor: '#ffffff',
+                        pointRadius: 4
+                    },
+
+                ],
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            drawBorder: true,
+                            color: '#f2f2f2',
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 150
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            display: true
+                        },
+                        gridLines: {
+                            display: true
+                        }
+                    }]
+                },
+            }
+        });
+    </script>
 @endsection
