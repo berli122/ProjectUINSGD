@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Js;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SPKController;
@@ -8,10 +9,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\LemburController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\ChartJsController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\PekerjaanController;
-use Illuminate\Support\Js;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,6 @@ Route::get('/register', function () {
 });
 
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 //Print
@@ -55,6 +55,7 @@ Route::get('printT/{tglawal}/{tglakhir}', [App\Http\Controllers\PrintController:
 
 
 Route::group(['middleware' => ['auth', 'role:admin,user']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     //Laporan Lembur
     Route::get('/list-lembur', [LemburController::class, 'index'])->name('lembur.index');
@@ -104,6 +105,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/edit-user/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/chart', [ChartJsController::class, 'chart'])->name('utils.chart');
 
     Route::resource('jabatan', JabatanController::class);
 });

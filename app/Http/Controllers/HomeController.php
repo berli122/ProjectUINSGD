@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Yajra\DataTables\Facades\DataTables;
+
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Lembur;
-use Illuminate\Http\Request;
+use App\Models\Jabatan;
+use Yajra\DataTables\Facades\DataTables;
 
 class HomeController extends Controller
 {
@@ -24,16 +27,33 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
-    }
+        $user = User::with('jabatan', 'golongan')->paginate(10);
+        $lemburs = Lembur::all('id')->count();
+        $jabatans = Jabatan::all('id')->count();
+        $juser = User::all('id')->count();
 
-    public function getKliping()
-    {
-        $data = Lembur::select('*')
-                ->join('tb_kat_berita', 'tb_kliping.id_kat_berita', '=', 'tb_kat_berita.id_kat_berita')
-                ->where('tb_kliping.id_stat_kliping', 2)
-                ->limit(100)
-                ->get();
-        return DataTables::of($data)->make(true);
+        $lemb = Lembur::select('id', 'created_at')->get()->groupBy(function ($lemb) {
+            return Carbon::parse($lemb->created_at)->isoFormat('MMMM');
+        });
+        $monthlembur = [];
+        $monthCountlembur = [];
+
+        foreach ($lemb as $monthl => $values) {
+            $monthlembur[] = $monthl;
+            $monthCountlembur[] = count($values);
+        }
+
+        $users = User::select('id','created_at')->get()->groupBy(function ($users) {
+            return Carbon::parse($users->created_at)->isoFormat('MMMM');
+        });
+        $months = [];
+        $monthCount = [];
+
+        foreach ($users as $month => $values) {
+            $months[] = $month;
+            $monthCount[] = count($values);
+        }
+        return view('home', ['user' => $user, 'users' => $users, 'months' => $months, 'monthCount' => $monthCount, 'lemb' => $lemb, 'monthlembur' => $monthlembur, 'monthCountlembur' => $monthCountlembur], compact('juser', 'lemburs', 'jabatans', ));
+
     }
 }

@@ -1,3 +1,4 @@
+
 @extends('layouts.master')
 <!DOCTYPE html>
 
@@ -7,9 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PTIPD SGD | Daftar User</title>
     <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.1/af-2.5.1/b-2.3.3/b-colvis-2.3.3/b-html5-2.3.3/b-print-2.3.3/cr-1.6.1/date-1.2.0/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/rg-1.3.0/rr-1.3.1/sc-2.0.7/sb-1.4.0/sp-2.1.0/sl-1.5.0/sr-1.2.0/datatables.min.css" />
+    href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.1/af-2.5.1/b-2.3.3/b-colvis-2.3.3/b-html5-2.3.3/b-print-2.3.3/cr-1.6.1/date-1.2.0/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/rg-1.3.0/rr-1.3.1/sc-2.0.7/sb-1.4.0/sp-2.1.0/sl-1.5.0/sr-1.2.0/datatables.min.css" />
 </head>
 
 @section('content')
@@ -166,19 +167,22 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('tamplate/stisla/dist/assets/modules/chart.min.js') }}"></script>
 
+    <script src="{{ asset('tamplate/stisla/dist/assets/modules/chart.min.js') }}"></script>
     <!-- Page Specific JS File -->
     <script src="{{ asset('tamplate/stisla/dist/assets/js/page/modules-chartjs.js') }}"></script>
     <script type="text/javascript">
+    var labels = {!! json_encode($months) !!};
+    var users = {!! json_encode($monthCount) !!};
+
         var ctx = document.getElementById("myChartB").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: [{{ json_encode($labels) }}],
+                labels: labels,
                 datasets: [{
-                        label: 'user',
-                        data: [44, 50, 70, 50, 430, 10, 20],
+                        label: labels,
+                        data: users,
                         borderWidth: 2,
                         backgroundColor: '#fad',
                         borderColor: '#fad',
@@ -186,22 +190,11 @@
                         pointBackgroundColor: '#ffffff',
                         pointRadius: 4
                     },
-                    {
-                        label: 'lembur',
-                        data: [44, 50, 70, 50, 430, 10, 20],
-                        borderWidth: 2,
-                        backgroundColor: '#FFFF4D',
-                        borderColor: '#FFFF4D',
-                        borderWidth: 2.5,
-                        pointBackgroundColor: '#ffffff',
-                        pointRadius: 4
-                    },
-
                 ],
             },
             options: {
                 legend: {
-                    display: false
+                    display: true,
                 },
                 scales: {
                     yAxes: [{

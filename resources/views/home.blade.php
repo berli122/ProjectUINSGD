@@ -1,23 +1,138 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
+    <section class="section">
+        <div class="section-header text-uppercase">
+            <h6>Dashboard</h6>
+            <div class="section-header-breadcrumb">
             </div>
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-primary">
+                            <i class="fa-solid fa-user" style="color: white"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total User</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $juser }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-primary">
+                            <i class="fa-solid fa-diagram-project" style="color: white"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Jabatan</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $jabatans }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-primary">
+                            <i class="fa-solid fa-bars-progress" style="color: white"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Lembur</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $lemburs }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="float-start text-primary">Data Bar</h4>
+                </div>
+                <div class="card-body">
+                    <canvas id="myChartB" height="100px"></canvas>
+                </div>
+            </div>
+    </section>
+@endsection
+@section('js')
+    <script src="{{ asset('tamplate/stisla/dist/assets/modules/chart.min.js') }}"></script>
+    <!-- Page Specific JS File -->
+    <script src="{{ asset('tamplate/stisla/dist/assets/js/page/modules-chartjs.js') }}"></script>
+    <script type="text/javascript">
+        var labels = ({!! json_encode($months) !!} || {!! json_encode($monthlembur) !!});
+        var data = {!! json_encode($monthCount) !!};
+        var lembus = {!! json_encode($monthCountlembur) !!};
+
+        var ctx = document.getElementById("myChartB").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [labels],
+                datasets: [
+                    {
+                        label: 'User',
+                        data: data,
+                        borderWidth: 2,
+                        backgroundColor: '#fad',
+                        borderColor: '#fad',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#ffffff',
+                        pointRadius: 4
+
+                    },
+                    {
+                        label: 'Lembur',
+                        data: lembus,
+                        borderWidth: 2,
+                        backgroundColor: '#ff4',
+                        borderColor: '#ff4',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#ffffff',
+                        pointRadius: 4
+                    }
+                ],
+            },
+            options: {
+                legend: {
+                    display: true,
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: true,
+                            drawBorder: true,
+                            color: '#f2f2f2',
+                        },
+                        ticks: {
+                            display : true,
+                            beginAtZero: true,
+                            stepSize: 25
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            display: true
+                        },
+                        gridLines: {
+                            display: true
+                        }
+                    }]
+                },
+            }
+        });
+    </script>
+
     </div>
-</div>
 @endsection

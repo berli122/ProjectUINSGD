@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -235,7 +235,6 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Js' => Collective\Html\HtmlFacade::class,
 
 
     ],

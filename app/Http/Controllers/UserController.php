@@ -6,11 +6,12 @@ use App\Models\Golongan;
 use App\Models\Jabatan;
 use App\Models\Lembur;
 use App\Models\User;
+use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
-use Auth;
 
 class UserController extends Controller
 {
@@ -31,12 +32,29 @@ class UserController extends Controller
         $lemburs = Lembur::all('id')->count();
         $jabatans = Jabatan::all('id')->count();
         $juser = User::all('id')->count();
-        // $users = User::select(DB::raw("CAST(COUNT(id) as int) as total_user"))
-        // ->Groupby(DB::raw("Month(created_at)"))
-        // ->pluck('total_user');
 
-        $labels = ['Januari', 'Februari',  'Maret', 'April'];
-        return view('user.index', ['user' => $user, 'labels' => $labels], compact('juser', 'lemburs', 'jabatans',));
+        $lemb = Lembur::select('user_id', 'created_at')->get()->groupBy(function ($lemb) {
+            return Carbon::parse($lemb->created_at)->isoFormat('MMMM');
+        });
+        $monthlembur = [];
+        $monthCountlembur = [];
+
+        foreach ($lemb as $monthl => $values) {
+            $monthlembur[] = $monthl;
+            $monthCountlembur[] = count($values);
+        }
+
+        $users = User::select('created_at')->get()->groupBy(function ($users) {
+            return Carbon::parse($users->created_at)->isoFormat('MMMM');
+        });
+        $months = [];
+        $monthCount = [];
+
+        foreach ($users as $month => $values) {
+            $months[] = $month;
+            $monthCount[] = count($values);
+        }
+        return view('user.index', ['user' => $user, 'users' => $users, 'months' => $months, 'monthCount' => $monthCount, 'lemb' => $lemb, 'monthlembur' => $monthlembur, 'monthCountlembur' => $monthlembur], compact('juser', 'lemburs', 'jabatans', ));
     }
 
     /**
@@ -229,16 +247,20 @@ class UserController extends Controller
 
     }
 
-    // public function chart()
-    // {
-    //     $total_user = User::select(DB::raw("CAST(COUNT(id) as int) as total_user"))
-    //     ->Groupby(BD::raw("Month(created_at)"))
-    //     ->pluk('total_user');
+    public function chart()
+    {
 
-    //     $bulan = User::select(DB::raw("MONTHNAME(created_at) as bulan"))
-    //     ->Groupby(BD::raw("MONTHNAME(created_at)"))
-    //     ->pluk('bulan');
+        $users = User::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('id', 'ASC')
+            ->pluck('count', 'month_name');
 
-    //     return view('user.index', compact('total_user', 'data'));
-    // }
+        $labels = $users->keys();
+        $data = $users->values();
+
+        return view('user.index', compact('labels', 'data'));
+
+    }
+
 }
