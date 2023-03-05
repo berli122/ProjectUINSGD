@@ -18,7 +18,7 @@ class SPKController extends Controller
     public function index()
     {
         //
-        $spk = SPK::with('user', 'pekerjaan', 'lembur')->paginate(10);
+        $spk = SPK::with('user', 'pekerjaan', 'lembur')->get();
         $spks = SPK::where('id')->count();
         return view('spk.index', ['spk' => $spk], compact('spks'));
     }

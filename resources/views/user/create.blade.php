@@ -21,7 +21,9 @@
             <div class="col-md-8" width="100%">
                 <div class="card" width="100%">
                     <div class="card-header">
-                        Data User
+                        <h4 class="float-start text-primary">
+                            Tambah Data User
+                        </h4>
                     </div>
                     @include('layouts.flash')
                     <div class="card-body p-4">
@@ -101,7 +103,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="formFile" class="form-label">Foto</label>
-                                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image">
+                                <input class="form-control @error('image') is-invalid @enderror" type="file"
+                                    id="image" name="image">
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -136,8 +139,7 @@
 
                             <div class="mb-3 col-12">
                                 <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary py-3 w-100 mb-4"
-                                        id="tombol">Register
+                                    <button type="submit" class="btn btn-primary py-3 w-100 mb-4" id="tombol">Register
                                     </button>
                                 </div>
                             </div>

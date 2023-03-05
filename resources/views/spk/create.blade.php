@@ -6,7 +6,11 @@
             <div class="col-md-8">
                 @include('layouts.flash')
                 <div class="card mt-3">
-                    <div class="card-header mb-3">Buat Jabatan Baru</div>
+                    <div class="card-header mb-3">
+                        <h4 class="float-start text-primary">
+                            Buat Surat Perintah Kerja
+                        </h4>
+                    </div>
                     <div class="card-body p-4">
                         <form class="row g-2" action="{{ route('spk.store') }}" method="post">
                             @csrf

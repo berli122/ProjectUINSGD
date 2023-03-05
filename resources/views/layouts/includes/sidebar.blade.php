@@ -8,10 +8,12 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="dropdown {{ Request::is('user', 'jabatan', 'pekerjaan', 'list-golongan', 'list-pekerjaan') ? 'active' : '' }}">
+            <li class="dropdown {{ Request::is('user', 'jabatan', 'pekerjaan', 'list-golongan', 'list-pekerjaan', 'home') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="bi bi-fire"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
                     @if (Auth::user()->role == 'admin')
+                        <li class="{{ Request::is('home') ? 'active' : '' }}"><a class="nav-link"
+                                href="{{ route('home') }}">Dashboard</a></li>
                         <li class="{{ Request::is('user') ? 'active' : '' }}"><a class="nav-link"
                                 href="{{ route('user.index') }}">Daftar User</a></li>
                         <li class="{{ Request::is('jabatan') ? 'active' : '' }}"><a class="nav-link"
@@ -33,3 +35,5 @@
         </ul>
     </aside>
 </div>
+
+

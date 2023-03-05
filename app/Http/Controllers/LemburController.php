@@ -23,9 +23,9 @@ class LemburController extends Controller
     {
         $lemburs = Lembur::all('id')->count();
         if (Auth::user()->role == 'admin') {
-            $lembur = Lembur::with('user')->paginate(15);
+            $lembur = Lembur::with('user')->get();
         } else{
-            $lembur = Lembur::with('user')->where('user_id', Auth::user()->id)->paginate(15);
+            $lembur = Lembur::with('user')->where('user_id', Auth::user()->id)->get();
         }
         return view('lembur.index', ['lembur' => $lembur], compact('lemburs'));
     }

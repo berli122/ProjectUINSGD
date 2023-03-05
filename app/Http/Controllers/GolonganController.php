@@ -14,7 +14,7 @@ class GolonganController extends Controller
      */
     public function index()
     {
-        $golo = Golongan::paginate(10);
+        $golo = Golongan::get();
         return view('golongan.index', ['golo' => $golo]);
     }
 

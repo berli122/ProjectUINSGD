@@ -16,7 +16,9 @@
             <div class="row justify-content-center">
                 <div class="card card-info card-outline col-md-8">
                     <div class="card-header">
-                        <h4>Print</h4>
+                        <h4 class="float-start text-primary">
+                            Tambah Data User
+                        </h4>
                     </div>
                     <div class="card-body p-4 row g-2">
                         <div class="mb-3 col-6 float-start">

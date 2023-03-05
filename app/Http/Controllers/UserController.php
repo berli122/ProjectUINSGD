@@ -28,7 +28,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $user = User::with('jabatan', 'golongan')->paginate(10);
+        $user = User::with('jabatan', 'golongan')->get();
         $lemburs = Lembur::all('id')->count();
         $jabatans = Jabatan::all('id')->count();
         $juser = User::all('id')->count();

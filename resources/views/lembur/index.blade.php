@@ -39,70 +39,61 @@
                             <th>Uraian</th>
                             <th style="width: 20%">Action</th>
                         </thead>
-                        @foreach ($lembur as $data => $item)
-                            <tbody>
-                                <td>{{ $no++ }}</td>
-                                <td>{{ $item->user->nip }}</td>
-                                <td>{{ $item->user->name }}</td>
-                                <td>{{ $item->kgtn }}</td>
-                                @php
-                                    $hari = Carbon\Carbon::parse($item->tgl)->isoFormat('dddd');
-                                    $awal = date_create($item->dari);
-                                    $akhir = date_create($item->sampai);
-                                    $diff = date_diff($awal, $akhir);
-                                    $lem = $diff->h * 3600 + $diff->i * 60;
-                                @endphp
-                                <td>
-                                    @if ($lem <= 0)
-                                        =  Tidak Lembur
-                                    @elseif ($lem >= 32400)
-                                        @php
-                                            $jam = ($lem - 28800) / 3600;
-                                            echo round($jam) . ' Jam';
-                                        @endphp
-                                    @elseif ($lem >= 28800)
-                                        @if (($lem - 28800) / 60 < 45)
-                                            Tidak Lembur
-                                        @else
-                                            {{ ($lem - 28800) / 60 }} Menit
+                        <tbody>
+                            @foreach ($lembur as $data => $item)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $item->user->nip }}</td>
+                                    <td>{{ $item->user->name }}</td>
+                                    <td>{{ $item->kgtn }}</td>
+                                    @php
+                                        $hari = Carbon\Carbon::parse($item->tgl)->isoFormat('dddd');
+                                        $awal = date_create($item->dari);
+                                        $akhir = date_create($item->sampai);
+                                        $diff = date_diff($awal, $akhir);
+                                        $lem = $diff->h * 3600 + $diff->i * 60;
+                                    @endphp
+                                    <td>
+                                        @if ($lem <= 0)
+                                            =Tidak Lembur
+                                        @elseif ($lem >= 32400)
+                                            @php
+                                                $jam = ($lem - 28800) / 3600;
+                                                echo round($jam) . ' Jam';
+                                            @endphp
+                                        @elseif ($lem >= 28800)
+                                            @if (($lem - 28800) / 60 < 45)
+                                                Tidak Lembur
+                                            @else
+                                                {{ ($lem - 28800) / 60 }} Menit
+                                            @endif
                                         @endif
-                                    @endif
-                                </td>
-                                <td>{{ \Carbon\Carbon::parse($item->tgl)->isoFormat('dddd, D MMM Y') }}</td>
-                                <td>{{ $uraian = substr($item->urai, 0, 15) }}</td>
-                                <td>
-                                    <form action="{{ route('lembur.destroy', $item->id) }}" method="post">
-                                        @method('delete')
-                                        @csrf
-                                        @if ($lem > 28800)
-                                            <a href="{{ route('lembur.show', $item->id) }}" class="btn btn-primary">
-                                                <span class="text bi bi-printer-fill">Print</span>
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($item->tgl)->isoFormat('dddd, D MMM Y') }}</td>
+                                    <td>{{ $uraian = substr($item->urai, 0, 15) }}</td>
+                                    <td>
+                                        <form action="{{ route('lembur.destroy', $item->id) }}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            @if ($lem > 28800)
+                                                <a href="{{ route('lembur.show', $item->id) }}" class="btn btn-primary">
+                                                    <span class="text bi bi-printer-fill">Print</span>
+                                                </a>
+                                            @endif
+                                            <a href="{{ route('lembur.edit', $item->id) }}" class="btn btn-warning ">
+                                                <span class="text"><i class="fa-solid fa-pen-to-square"></i> Edit</span>
                                             </a>
-                                        @endif
-                                        <a href="{{ route('lembur.edit', $item->id) }}" class="btn btn-warning ">
-                                            <span class="text"><i class="fa-solid fa-pen-to-square"></i> Edit</span>
-                                        </a>
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('Apakah Kamu Yakin?')">
-                                            <span class="text"><i class="fa-solid fa-trash"></i> Delete</span>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tbody>
-                        @endforeach
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Apakah Kamu Yakin?')">
+                                                <span class="text"><i class="fa-solid fa-trash"></i> Delete</span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                         </thead>
                     </table>
-                    <div style="float: left">
-                        Showing
-                        {{ $lembur->firstitem() }}
-                        to
-                        {{ $lembur->lastitem() }}
-                        of
-                        {{ $lembur->total() }}
-                    </div>
-                    <div style="float: right">
-                        {{ $lembur->links() }}
-                    </div>
                 </div>
             </div>
         </div>

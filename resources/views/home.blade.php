@@ -71,7 +71,7 @@
     <!-- Page Specific JS File -->
     <script src="{{ asset('tamplate/stisla/dist/assets/js/page/modules-chartjs.js') }}"></script>
     <script type="text/javascript">
-        var labels = ({!! json_encode($months) !!} || {!! json_encode($monthlembur) !!});
+        var labels = ({!! json_encode($monthlembur) !!} || {!! json_encode($months) !!}  );
         var data = {!! json_encode($monthCount) !!};
         var lembus = {!! json_encode($monthCountlembur) !!};
 
@@ -79,26 +79,27 @@
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [labels],
+                labels: labels,
                 datasets: [
                     {
-                        label: 'User',
+                        label: 'USER',
                         data: data,
-                        borderWidth: 2,
-                        backgroundColor: '#fad',
+                        borderWidth: 5,
+                        // backgroundColor: '#fad',
                         borderColor: '#fad',
-                        borderWidth: 2,
+                        borderWidth: 5,
                         pointBackgroundColor: '#ffffff',
                         pointRadius: 4
 
+
                     },
                     {
-                        label: 'Lembur',
+                        label: 'LEMBUR',
                         data: lembus,
-                        borderWidth: 2,
-                        backgroundColor: '#ff4',
+                        borderWidth: 5,
+                        // backgroundColor: '#ff4',
                         borderColor: '#ff4',
-                        borderWidth: 2,
+                        borderWidth: 5,
                         pointBackgroundColor: '#ffffff',
                         pointRadius: 4
                     }
@@ -118,7 +119,7 @@
                         ticks: {
                             display : true,
                             beginAtZero: true,
-                            stepSize: 25
+                            stepSize: true
                         }
                     }],
                     xAxes: [{
@@ -133,6 +134,4 @@
             }
         });
     </script>
-
-    </div>
 @endsection

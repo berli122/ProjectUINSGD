@@ -24,7 +24,7 @@ class PrintController extends Controller
     {
         // dd("Tanggal Awal : ".$tglawal, "Tanggal Akhir : ".$tglakhir);
         if ($tglawal <= $tglakhir) {
-            $printView = SPK::with('user', 'pekerjaan', 'lembur')->whereBetween('created_at', [$tglawal, $tglakhir])->get();
+            $printView = SPK::with('user', 'pekerjaan', 'lembur')->whereBetween('created_at', [$tglawal,    $tglakhir])->get();
             return view('spk.printView', compact('printView'));
             // $pdf = Pdf::loadView('spk.printView', ['printView' => $printView])->setPaper('a4', 'landscape');
             // return $pdf->stream()->view('spk.printView', compact('printView'));;

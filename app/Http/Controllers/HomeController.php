@@ -27,13 +27,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = User::with('jabatan', 'golongan')->paginate(10);
+        $user = User::with('jabatan', 'golongan')->get();
         $lemburs = Lembur::all('id')->count();
         $jabatans = Jabatan::all('id')->count();
         $juser = User::all('id')->count();
 
-        $lemb = Lembur::select('id', 'created_at')->get()->groupBy(function ($lemb) {
-            return Carbon::parse($lemb->created_at)->isoFormat('MMMM');
+        $lemb = Lembur::select('id', 'tgl')->get()->groupBy(function ($lemb) {
+            return Carbon::parse($lemb->tgl)->isoFormat('MMMM');
         });
         $monthlembur = [];
         $monthCountlembur = [];

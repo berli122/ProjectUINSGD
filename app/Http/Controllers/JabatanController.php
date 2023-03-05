@@ -21,11 +21,8 @@ class JabatanController extends Controller
     public function index()
     {
         //
-        $jab = Jabatan::paginate(10);
-        $lemburs = Lembur::all('id')->count();
-        $jabatans = Jabatan::all('id')->count();
-        $juser = User::all('id')->count();
-        return view('jabatan.index', ['jab' => $jab], compact('juser', 'lemburs', 'jabatans'));
+        $jab = Jabatan::all();
+        return view('jabatan.index', ['jab' => $jab]);
     }
 
     /**

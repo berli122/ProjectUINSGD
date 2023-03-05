@@ -6,7 +6,9 @@
             <div class="col-md-12">
                 @include('layouts.flash')
                 <div class="card border-secondary">
-                    <div class="card-header mb-3">Edit Laporan</div>
+                    <div class="card-header mb-3">
+                        
+                    </div>
                     <div class="card-body">
                         <form class="row g-2" action="{{ route('lembur.update', $lembur->id) }}" method="post">
                             @method('put')

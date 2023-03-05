@@ -13,7 +13,9 @@
             <div class="col-md-8" width="100%">
                 <div class="card mt-3">
                     <div class="card-header">
-                        Data User
+                        <h4 class="float-start text-primary">
+                            Edit Data User
+                        </h4>
                     </div>
                     <div class="card-body p-4">
                         <form class="row g-2 form-floating" action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
